@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,15 +17,17 @@
     <div id="app">
         <p v-cloak>{{value1 | msgFormat}}</p>
         <p v-for="(value,index) in list" :key="value.id">
-
             {{index}} --- {{value.name | msgF}}</p>
-        <button :class="[value2?'':'newclass']" @click="func1()">hhh</button>
+        <button :class="[value2?'':'newclass']" @click="func1()">样式绑定</button>
+        <button @click="func2()">http请求</button>
         <input type="text" v-model="value1" v-focus> </input>
     </div>
+    <script src="node_modules\jQuery\tmp\jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     <script>
+        /* import $ from 'jQuery' */
         //全局滤波
-        Vue.filter('msgF',(mas)=>{
+        Vue.filter('msgF', (mas) => {
             return mas + '!'
         })
         var vm = new Vue({
@@ -44,44 +45,61 @@
                 ]
             },
             methods: {
+                //change the style of button
                 func1: function () {
                     console.log("haha", this);
                     this.newclass = 'newclass'
                     this.value2 = ~this.value2
+                },
+                func2: () => {
+                    $.ajax({
+                        type: "GET",      //data 传送数据类型。post 传递
+                        dataType: 'json',  // 返回数据的数据类型json
+                        url: "http://localhost:8081/TestJsonp",  // yii 控制器/方法
+                        //data: { callback: func },  //传送的数据
+                        error: function (err) {
+                            console.log(err);
+                        }, 
+                        success: function (data) {
+                                console.log(typeof(data),data);
+                        }
+                    })
                 }
             },
-            beforeCreate:function(){},
-            created:function(){
-                
+            beforeCreate: function () { },
+            created: function () {
             },
-            beforeMount:function(){},
-            mounted:function(){},
-            beforeUpdate:function(){},
-            updated:function(){},
-            beforeDestory(){},
-            destoryed:function(){},
-            filters:{
-                msgFormat:function(msg){
-                    return msg.replace(/w{2,}/g,'网址')  //替换全字符串
+            beforeMount: function () { },
+            mounted: function () { },
+            beforeUpdate: function () { },
+            updated: function () { },
+            beforeDestory() { },
+            destoryed: function () { },
+            filters: {
+                msgFormat: function (msg) {
+                    return msg.replace(/w{2,}/g, '网址')  //替换全字符串
                     //return msg.toString().padStart(2,'X')
                 }
             },
-            directives:{
-                'focus':{
-                    bind:(el,binding)=>{
-                        
+            directives: {
+                'focus': {
+                    bind: (el, binding) => {
+
                     },
-                    inserted:(el)=>{
+                    inserted: (el) => {
                         el.focus()
                     },
-                    updated:()=>{
+                    updated: () => {
 
                     }
                 }
             }
         })
+        function func(data) {
+            console.log(data)
+        }
     </script>
-
+    <!-- test for jsonp -->
+    <!-- <script src="http://localhost:8081/TestJsonp?callback=func"></script> -->
 </body>
-
 </html>
