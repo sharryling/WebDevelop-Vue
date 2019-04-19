@@ -16,19 +16,23 @@
         }
     </style>
     <div id="app">
-        <p v-cloak>{{value1}}</p>
+        <p v-cloak>{{value1 | msgFormat}}</p>
         <p v-for="(value,index) in list" :key="value.id">
 
-            {{index}} --- {{value.name}}</p>
+            {{index}} --- {{value.name | msgF}}</p>
         <button :class="[value2?'':'newclass']" @click="func1()">hhh</button>
-        <input type="text" v-model="value1"> </input>
+        <input type="text" v-model="value1" v-focus> </input>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     <script>
+        //全局滤波
+        Vue.filter('msgF',(mas)=>{
+            return mas + '!'
+        })
         var vm = new Vue({
             el: '#app',
             data: {
-                value1: 1,
+                value1: 'www.hhh.www.conadfwww',
                 value2: false,
                 newclass: '',
                 list: [
@@ -46,8 +50,34 @@
                     this.value2 = ~this.value2
                 }
             },
+            beforeCreate:function(){},
             created:function(){
                 
+            },
+            beforeMount:function(){},
+            mounted:function(){},
+            beforeUpdate:function(){},
+            updated:function(){},
+            beforeDestory(){},
+            destoryed:function(){},
+            filters:{
+                msgFormat:function(msg){
+                    return msg.replace(/w{2,}/g,'网址')  //替换全字符串
+                    //return msg.toString().padStart(2,'X')
+                }
+            },
+            directives:{
+                'focus':{
+                    bind:(el,binding)=>{
+                        
+                    },
+                    inserted:(el)=>{
+                        el.focus()
+                    },
+                    updated:()=>{
+
+                    }
+                }
             }
         })
     </script>
