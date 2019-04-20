@@ -56,7 +56,7 @@ export default {
             this.value2 = ~this.value2
             this.$emit('getSon',this.data)
             console.log(this.$refs.httpButton.innerText)
-        },
+        }, 
         func2: function () {
             /* $.ajax({
                 type: "GET",      //data 传送数据类型。post 传递
