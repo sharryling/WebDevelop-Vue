@@ -1,27 +1,13 @@
 <template>
   <div id="app">
-    <hello :sonValue="fatherValue" v-on:getSon="getFromSon"/>
+     <router-view></router-view>
   </div>
+  
 </template>
 
 <script>
-import hello from './components/hello'
-
 export default {
   name: 'App',
-  data:function(){
-    return {
-      fatherValue:'papa'
-    }
-  },
-  components: {
-    hello
-  },
-  methods:{
-    getFromSon:function(data){
-      console.log('son value =',data)
-    }
-  }
 }
 </script>
 
@@ -41,5 +27,12 @@ html,body{
   margin: 0 auto;
   height: 100%;
   width: 100%;
+}
+button,button:focus,button:active{
+  outline: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #DDDDDD;
 }
 </style>

@@ -5,12 +5,18 @@
         {{index}} --- {{value.name | msgFormat}}</p>
     <button :class="[value2?'':'newclass']" @click="func1()">样式绑定</button>
     <button @click="func2()" ref="httpButton">http请求</button>
+    <button @click="func3()">route转换</button>
     <input type="text" v-model="value1" v-focus>
     <transition />
+    <router-link to="/test">link to test</router-link>
+
+    <router-view> </router-view>
+
 </div>
 </template>
 
 <script>
+import Vue from "vue";
 import transition from './transition.vue'
 export default {
     data: function () {
@@ -42,8 +48,8 @@ export default {
             ]
         }
     },
-    props:{
-        sonValue:String
+    props: {
+        sonValue: String
     },
     components: {
         transition
@@ -54,9 +60,9 @@ export default {
             //console.log("haha", this);
             this.newclass = 'newclass'
             this.value2 = ~this.value2
-            this.$emit('getSon',this.data)
+            this.$emit('getSon', this.data)
             console.log(this.$refs.httpButton.innerText)
-        }, 
+        },
         func2: function () {
             /* $.ajax({
                 type: "GET",      //data 传送数据类型。post 传递
@@ -69,12 +75,17 @@ export default {
                 success: function (data) {
                         console.log(typeof(data),data);
                 }
-            }) */ 
-            this.$http.get('http://localhost:8081/TestJsonp').then(data => {
+            }) */
+
+            //vue-resource 比jQuery来说更小
+            /* this.$http.get('http://localhost:8081/TestJsonp').then(data => {
                 //this.$set('news', data.stories);
                 console.log(data);
                 this.data = data
-            });
+            }); */
+        },
+        func3: function () {
+            this.$router.push('/test1')
         }
     },
     beforeCreate: function () {},
