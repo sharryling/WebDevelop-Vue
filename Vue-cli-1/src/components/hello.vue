@@ -8,10 +8,11 @@
     <button @click="func3()">route转换</button>
     <input type="text" v-model="value1" v-focus>
     <transition />
-    <router-link to="/test">link to test</router-link>
-
+    <router-link :to="{name: 'test',params:{id:id}}">link to test</router-link>
     <router-view> </router-view>
-
+<!-- <router-view name="header"></router-view>
+   <router-view name="left"></router-view>
+   <router-view name="main"></router-view> -->
 </div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
             value1: 'www.hhh.www.conadfwww',
             value2: false,
             newclass: '',
+            id:'726',
             data: 'son son son',
             list: [{
                     id: 1,
@@ -85,7 +87,9 @@ export default {
             }); */
         },
         func3: function () {
-            this.$router.push('/test1')
+            
+            
+            this.$router.push({name: '/test1',params:{id:this.id}})
         }
     },
     beforeCreate: function () {},

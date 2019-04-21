@@ -2,7 +2,7 @@
 <div id="test">
    <p>登录组件</p>
    <button @click="$router.push('/')">back to helloWS</button>
-  <!-- <router-view></router-view>
+<!--   <router-view></router-view>
     <router-view name="header"></router-view>
    <router-view name="left"></router-view>
    <router-view name="main"></router-view> -->
